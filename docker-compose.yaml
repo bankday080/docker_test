@@ -6,4 +6,4 @@ services:
     volumes:
       - ./server:/data
     ports:
-      - 8000:8000
+      - 4000:4000
