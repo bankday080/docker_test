@@ -1,0 +1,9 @@
+version: "3"
+
+services:
+  web:
+    images: bankday080:nodemon
+    volumes:
+      - ./docker_test:/data
+    ports:
+      - 8000:8000
