@@ -11,7 +11,7 @@ const typeDefs = gql`
 const resolvers = {
     Query:{
         hello: (parent, args, context, info) => {
-            return "world"
+            return "world";
         }
     }
 };
@@ -23,3 +23,5 @@ const startApolloServer = async (typeDefs, resolver) =>{
     const { url } = await server.listen(); // { url } = { url: ...., port: ...}
     console.log(`Server ready at ${url}`);
 };
+//call function
+startApolloServer(typeDefs, resolvers);
