@@ -14,7 +14,7 @@ const resolvers = {
             return "world"
         }
     }
-}
+};
 
 
 //function apollo-server
