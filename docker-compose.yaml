@@ -1,9 +1,9 @@
 version: "3"
 
 services:
-  web:
-    images: bankday080:nodemon
+  apiserver:
+    image: bankday080/nodemon:v2
     volumes:
-      - ./docker_test:/data
+      - ./server:/data
     ports:
       - 8000:8000
