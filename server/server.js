@@ -4,7 +4,8 @@ const  machines = [
     { id : "01", brand: "Incubator_A",vertion: "v.4"},
     { id : "02", brand: "Incubator_B",vertion: "v.6"},
     { id : "03", brand: "Incubator_C",vertion: "v.2"},
-    { id : "04", brand: "Incubator_D",vertion: "v.7"}
+    { id : "04", brand: "Incubator_D",vertion: "v.7"},
+    { id : "05", brand: "Incubator_XD",vertion: "v.3"}
 ];
 const  eggs = [
     { egg_id : "01",date : "06/11/2545"},
