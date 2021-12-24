@@ -1,18 +1,53 @@
 import { ApolloServer, gql } from 'apollo-server';
 
+const  machines = [
+    { id : "01", brand: "Incubator_A",vertion: "v.4"},
+    { id : "02", brand: "Incubator_B",vertion: "v.6"},
+    { id : "03", brand: "Incubator_C",vertion: "v.2"},
+    { id : "04", brand: "Incubator_D",vertion: "v.7"},
+    { id : "05", brand: "Incubator_XD",vertion: "v.3"}
+];
+const  eggs = [
+    { egg_id : "01",date : "06/11/2545"},
+    { egg_id : "02",date : "07/01/2649"},
+];
 //schema
 const typeDefs = gql`
     type Query {
-        hello: String
+        machines:[Machine]
+        machine(id: String) : Machine
+        eggs:[Egg]
+        egg(egg_id: String) : Egg
+
+    }
+    type Machine{
+        id : String
+        brand : String
+        vertion : String
+    }
+    type Egg{
+        egg_id : String
+        date : String
+
     }
 `;
 
 //resolver
 const resolvers = {
     Query:{
-        hello: (parent, args, context, info) => {
-            return "world";
-        }
+        machines: (parent,args,context ,info)=>{
+            return machines;
+        },
+        machine: (parent,args,context ,info)=>{
+            return machine.find(machine=> machine.id === args.id);
+        },
+        eggs: (parent,args,context ,info)=>{
+            return eggs;
+        },
+        egg: (parent,args,context ,info)=>{
+            return egg.find(egg=> egg.egg_id === args.egg_id);
+        },
+
     }
 };
 
