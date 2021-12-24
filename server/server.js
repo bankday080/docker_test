@@ -1,8 +1,9 @@
 import { ApolloServer, gql } from 'apollo-server';
+//import { assertValidSDL } from 'graphql/validation/validate';
 
 const user = [
-    {name: "phusit", sex: "Male", id: 1},
-    {name: "pak", sex: "Male", id: 2},
+    {name: "phusit", sex: "Male", id: 1,},
+    {name: "pak", sex: "Male", id: 2,},
     {name: "fluke", sex: "Male", id: 3},
     {name: "puame", sex: "Male", id: 4},
 
@@ -13,6 +14,13 @@ const books = [
     {title: "The of", userID: 2, id: 1},
     {title: "The Ring", userID: 4, id: 2},
     {title: "The Bank", userID: 3, id: 3},
+];
+
+const location = [
+    {address: "13", city: "phayao",userID:1, id:0},
+    {address: "1", city: "chiangrai",userID:2, id:1},
+    {address: "112/1", city: "phayao",userID:3, id:2},
+    {address: "20", city: "phayao",userID:4, id:3},
 ];
 
 //schema
@@ -28,10 +36,16 @@ const typeDefs = gql`
         name: String
         sex: String
         books: [Book]
+        location: [Location]
     }
     type Book {
         id: ID
         title: String
+    }
+    type Location {
+        id: ID
+        address: String
+        city: String
     }
     type Mutation {
         addUser (name: String, sex: String): User
@@ -59,6 +73,9 @@ const resolvers = {
         books: ({ id }, args, context, info) => {
             return books.filter(book => book.userID == id);
         },
+        location: ({ id }, args, context, info) => {
+            return location.filter(location => location.userID == id);
+        }
     },
     Mutation: {
         addUser: (parent, args, context, info) => {
