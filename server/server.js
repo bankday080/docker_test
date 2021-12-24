@@ -1,5 +1,5 @@
 import { ApolloServer, gql } from 'apollo-server';
-//import { assertValidSDL } from 'graphql/validation/validate';
+import bcrypt from 'bcryptjs';
 
 const user = [
     {name: "phusit", sex: "Male", id: 1, password: "ab123"},
@@ -90,10 +90,11 @@ const resolvers = {
         },
         createUser: (parent, args, context, info) => {
             const {name, password} = args;
+            const hashPassword = bcrypt.hashSync(password, 10);
 
-            user.push({name: name, password: password});
+            user.push({name: name, password: hashPassword});
 
-            return {name: name, password: password};
+            return {name: name, password: hashPassword};
         }
     }
 };
