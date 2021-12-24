@@ -2,10 +2,10 @@ import { ApolloServer, gql } from 'apollo-server';
 //import { assertValidSDL } from 'graphql/validation/validate';
 
 const user = [
-    {name: "phusit", sex: "Male", id: 1,},
-    {name: "pak", sex: "Male", id: 2,},
-    {name: "fluke", sex: "Male", id: 3},
-    {name: "puame", sex: "Male", id: 4},
+    {name: "phusit", sex: "Male", id: 1, password: "ab123"},
+    {name: "pak", sex: "Male", id: 2, password: "ab123"},
+    {name: "fluke", sex: "Male", id: 3, password: "ab123"},
+    {name: "puame", sex: "Male", id: 4, password: "ab123"},
 
 ];
 
@@ -34,6 +34,7 @@ const typeDefs = gql`
     type User{
         id: ID
         name: String
+        password: String
         sex: String
         books: [Book]
         location: [Location]
@@ -49,6 +50,7 @@ const typeDefs = gql`
     }
     type Mutation {
         addUser (name: String, sex: String): User
+        creataUser(name: String, password: String): User
     }
 `;
 
