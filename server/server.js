@@ -50,7 +50,7 @@ const typeDefs = gql`
     }
     type Mutation {
         addUser (name: String, sex: String): User
-        creataUser(name: String, password: String): User
+        createUser(name: String, password: String): User
     }
 `;
 
@@ -87,6 +87,13 @@ const resolvers = {
             user.push({name: name, sex: sex});
             return {name: name, sex: sex};
 
+        },
+        createUser: (parent, args, context, info) => {
+            const {name, password} = args;
+
+            user.push({name: name, password: password});
+
+            return {name: name, password: password};
         }
     }
 };
