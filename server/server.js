@@ -1,53 +1,41 @@
 import { ApolloServer, gql } from 'apollo-server';
 
-const  machines = [
-    { id : "01", brand: "Incubator_A",vertion: "v.4"},
-    { id : "02", brand: "Incubator_B",vertion: "v.6"},
-    { id : "03", brand: "Incubator_C",vertion: "v.2"},
-    { id : "04", brand: "Incubator_D",vertion: "v.7"},
-    { id : "05", brand: "Incubator_XD",vertion: "v.3"}
-];
-const  eggs = [
-    { egg_id : "01",date : "06/11/2545"},
-    { egg_id : "02",date : "07/01/2649"},
-];
+const users = [
+    {name: "phusit", sex: "Male", id: "62021191"}
+]
+
 //schema
 const typeDefs = gql`
     type Query {
-        machines:[Machine]
-        machine(id: String) : Machine
-        eggs:[Egg]
-        egg(egg_id: String) : Egg
-
+        hello: String
     }
-    type Machine{
-        id : String
-        brand : String
-        vertion : String
+    type User{
+        name: String
+        sex: String
+        id: String
     }
-    type Egg{
-        egg_id : String
-        date : String
-
+    type Mutation {
+        addUser (name: String, sex: String): User
     }
 `;
 
 //resolver
 const resolvers = {
     Query:{
-        machines: (parent,args,context ,info)=>{
-            return machines;
+        hello: (parent, args, context, info) => {
+            return "dee";
         },
-        machine: (parent,args,context ,info)=>{
-            return machine.find(machine=> machine.id === args.id);
-        },
-        eggs: (parent,args,context ,info)=>{
-            return eggs;
-        },
-        egg: (parent,args,context ,info)=>{
-            return egg.find(egg=> egg.egg_id === args.egg_id);
-        },
+       
+    },
+    Mutation: {
+        addUser: (parent, args, context, info) => {
+            const {name, sex} = args; //const name = args.name;
 
+            //add info to database
+            users.push({name: name, sex: sex});
+            return {name: name, sex: sex};
+
+        }
     }
 };
 
