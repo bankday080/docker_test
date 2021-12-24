@@ -1,18 +1,37 @@
 import { ApolloServer, gql } from 'apollo-server';
 
-const users = [
-    {name: "phusit", sex: "Male", id: "62021191"}
-]
+const user = [
+    {name: "phusit", sex: "Male", id: 1},
+    {name: "pak", sex: "Male", id: 2},
+    {name: "fluke", sex: "Male", id: 3},
+    {name: "puame", sex: "Male", id: 4},
+
+];
+
+const books = [
+    {title: "The loard", userID: 1, id: 0},
+    {title: "The of", userID: 2, id: 1},
+    {title: "The Ring", userID: 4, id: 2},
+    {title: "The Bank", userID: 3, id: 3},
+];
 
 //schema
 const typeDefs = gql`
     type Query {
         hello: String
+        hi: String
+        users: [User]
+        user(name: String): User
     }
     type User{
+        id: ID
         name: String
         sex: String
-        id: String
+        books: [Book]
+    }
+    type Book {
+        id: ID
+        title: String
     }
     type Mutation {
         addUser (name: String, sex: String): User
@@ -25,14 +44,28 @@ const resolvers = {
         hello: (parent, args, context, info) => {
             return "dee";
         },
+        hi: (parent, args, context, info) => {
+            return "bye";
+        },
+        users: (parent, args, context, info) => {
+            return user;
+        },
+        user: (parent, args, context, info) => {
+            return user.find( user => user.name === args.name);
+        },
        
+    },
+    User: {
+        books: ({ id }, args, context, info) => {
+            return books.filter(book => book.userID == id);
+        },
     },
     Mutation: {
         addUser: (parent, args, context, info) => {
             const {name, sex} = args; //const name = args.name;
 
             //add info to database
-            users.push({name: name, sex: sex});
+            user.push({name: name, sex: sex});
             return {name: name, sex: sex};
 
         }
